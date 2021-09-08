@@ -7,8 +7,8 @@
 
 /*
 - Author: Anya Maradiaga
-- Date: Tuesday August 8, 2021
-- Description:
+- Date: Tuesday August 31, 2021
+- Description: The following project shows how bitwise operations like clear or set bit are used. 
 */
 
 //setbit function

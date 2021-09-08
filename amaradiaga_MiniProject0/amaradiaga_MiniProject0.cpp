@@ -9,7 +9,7 @@ void main()
     //display_binary(solo);
 
     /* ii */
-    setbit(&solo, 16);
+    setbit(&solo, 16); 
     setbit(&solo, 17);
     //printf("setbit for 16 and 17:\n\r");
     //display_binary(solo);
