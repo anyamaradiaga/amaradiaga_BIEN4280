@@ -14,7 +14,8 @@
 */
 
 //Three different LED blinking speeds for diagnostics
-typedef enum {
+typedef enum 
+{
     NO_ERROR,
     ATTN_REQ,
     FATAL_ERROR,
@@ -25,14 +26,14 @@ State;
 Mail<State, 9> mail_box;
 //creating thread
 Thread thread; 
-
+//serial port
 USBSerial serial;
 
 /*leg_diag_handler: thread responsible for driving the LEDs in different runtime states*/
 void led_diag_handler() 
 {
     setbit(DIRSET, 14);
-    uint32_t t1 = 5000;
+    uint32_t t = 5000;
 
     while(true)
     {
@@ -44,27 +45,27 @@ void led_diag_handler()
         if(*priority == NO_ERROR)
         {
             serial.printf("NO_ERROR\r\n");
-            t1 = 2000;
+            t = 2000;
             mail_box.free(priority); 
         }
         if(*priority == ATTN_REQ)
         {
             serial.printf("ATTN_REQ\r\n");
-            t1 = 1000;
+            t = 1000;
             mail_box.free(priority);
         }
         if(*priority == FATAL_ERROR)
         {
             serial.printf("FATAL_ERROR\r\n");
-            t1 = 500;
+            t = 500;
             mail_box.free(priority);
         }
 
         //handoff cpu to other threads
         setbit(OUTSET, 14);
-        thread_sleep_for(t1); 
+        thread_sleep_for(t); 
         setbit(OUTCLR, 14);
-        thread_sleep_for(t1);
+        thread_sleep_for(t);
     }
 }
 
